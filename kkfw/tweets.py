@@ -20,3 +20,15 @@ def dm(screen_name, text):
     api = returnAPI()    
     api.send_direct_message(screen_name=screen_name, text=text)
 
+@app.task
+def getFriendshipWithMe(screen_name):
+    api = returnAPI()    
+    friendships = api.show_friendship(source_screen_name=screen_name,
+                                     target_screen_name=SCREEN_NAME)
+    r = {
+         'following': friendships[0].following, 
+         'followed_by': friendships[0].followed_by
+         }
+    print(r)
+    return r
+

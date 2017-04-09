@@ -1,0 +1,3 @@
+celery -A kkfw worker --loglevel=info
+celery -A kkfw flower
+python  -m kkfw.run_tasks
