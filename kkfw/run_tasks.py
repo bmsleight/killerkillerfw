@@ -46,9 +46,13 @@ def main():
         print(api.me().screen_name)
         stream = tweepy.Stream(auth, StdOutListener(me=api.me().screen_name))
         stream.userstream()
-
+    except (KeyboardInterrupt, SystemExit):
+        raise
     except BaseException as e:
         print("Error in main()", e)
+        time.sleep(10)
+    finally:
+        pass
 
 if __name__ == '__main__':
     main()

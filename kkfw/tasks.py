@@ -16,9 +16,15 @@ def processInComing(user_id, screen_name, text):
 
     if verb == 'JOIN':
         r = joinRequest(screen_name)
-    if verb == 'LEAVE':
+    if verb == 'LEAVE' or verb == 'LEAVING':
         r = leaveRequest(screen_name)
-    
+    if verb == 'HOLIDAY':
+        r = holidayRequest(screen_name)
+    if verb == 'NEWSERIES':
+        r = newsSeriesRequest(screen_name, rest_of_message)
+#    if verb == 'PICK':
+#        r = pick(screen_name, rest_of_message)
+
     return r
 
 @app.task

@@ -47,10 +47,17 @@ def getFriendshipWithMe(screen_name):
          }
     return info
 
-def update_status_template(template, screen_name):
-    text =  env.get_template(template).render(screen_name=screen_name)
+@app.task(rate_limit='40/h')
+def destroy_friendship(screen_name):
+    api = returnAPI()
+    api.destroy_friendship(screen_name=screen_name)
+
+
+
+def update_status_template(template, **kwargs):
+    text =  env.get_template(template).render(kwargs)
     dummy_update_status.delay(text)
 
-def dm_template(template, screen_name):
-    text =  env.get_template(template).render(screen_name=screen_name)
+def dm_template(template, screen_name, **kwargs):
+    text =  env.get_template(template).render(kwargs, screen_name=screen_name)
     dummy_dm.delay(screen_name, text)
