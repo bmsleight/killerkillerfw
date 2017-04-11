@@ -53,6 +53,9 @@ def destroy_friendship(screen_name):
     api.destroy_friendship(screen_name=screen_name)
 
 
+def update_status_template_screen_name(template, screen_names, **kwargs):
+    for screen_name in screen_names:
+        update_status_template(template, screen_name, kwargs)
 
 def update_status_template(template, **kwargs):
     text =  env.get_template(template).render(kwargs)

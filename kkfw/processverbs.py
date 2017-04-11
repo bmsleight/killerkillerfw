@@ -57,7 +57,17 @@ def newsSeriesRequest(screen_name, silly_name):
 def newRoundRequest(screen_name):
     if(isAdmin(screen_name)):
         r = newRound()
-        dm_template('new-round.txt', screen_name, 
+        if r: 
+            # New Series
+            prize_pool = prizePool()
+            for players in playersInCurrentSeries():
+                update_status_template('new-round-still-in.txt',
+                    screen_name=players['screen_name'],
+                    prize_pool=prize_pool, 
+                    round_num=r['round_num'],
                     silly_name=r['silly_name'], 
                     entry_by=r['entry_by'],
-                    gamed_played_by=r['gamed_played_by'])
+                    gamed_played_by=r['gamed_played_by']
+                    )
+    else:
+        pass # Not admin

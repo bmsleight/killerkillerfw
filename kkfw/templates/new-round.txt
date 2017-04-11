@@ -1,1 +1,0 @@
-Ok @{{ screen_name }} A new round "{{silly_name }}" has started. Entries in {{ entry_by }} for games to be played by {{ gamed_played_by }} #kkfwinner

@@ -20,8 +20,10 @@ def processInComing(user_id, screen_name, text):
         r = leaveRequest(screen_name)
     if verb == 'HOLIDAY':
         r = holidayRequest(screen_name)
-    if verb == 'NEWSERIES':
+    if verb == 'NEWSERIES' and rest_of_message:
         r = newsSeriesRequest(screen_name, rest_of_message)
+    if verb == 'NEWROUND':
+        r = newRoundRequest(screen_name)
 #    if verb == 'PICK':
 #        r = pick(screen_name, rest_of_message)
 

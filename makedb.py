@@ -1,11 +1,12 @@
 import sqlite3
-conn = sqlite3.connect('./kkfw/kkfw.db', detect_types=sqlite3.PARSE_DECLTYPES)
+db = sqlite3.connect('./kkfw/kkfw.db', detect_types=sqlite3.PARSE_DECLTYPES)
 
 players = '''
     create table if not exists players (
     id integer primary key, 
     screen_name varchar unique,
     holiday BOOLEAN,
+    still_in BOOLEAN,
     admin BOOLEAN
     )
     '''
@@ -70,11 +71,46 @@ player_entries = '''
     )
 '''
 
-c = conn.cursor()
-conn.execute(players)
-conn.execute(teams)
-conn.execute(series)
-conn.execute(winners)
-conn.execute(payments)
-conn.execute(rounds)
-conn.execute(player_entries)
+cursor = db.cursor()
+cursor.execute(players)
+cursor.execute(teams)
+cursor.execute(series)
+cursor.execute(winners)
+cursor.execute(payments)
+cursor.execute(rounds)
+cursor.execute(player_entries)
+
+# Fixtures - Missing django yet ??
+team_list = [
+  ['AFC Bournemouth', 'Bournemouth'], 
+  ['Arsenal', 'Gunners'], 
+  ['Burnley', 'Burnley'], 
+  ['Chelsea', 'Chelsea'], 
+  ['Crystal Palace', 'Palace'],
+  ['Everton', 'Everton'],
+  ['Hull City', 'Hull'],
+  ['Leicester City', 'Leicester'],
+  ['Liverpool', 'Liverpool'],
+  ['Manchester City', 'Man City'],
+  ['Manchester United', 'Man U'], 
+  ['Middlesbrough', 'Brough'], 
+  ['Southampton', 'Saints'],
+  ['Stoke City', 'Stoke'], 
+  ['Sunderland', 'Sunderland'],
+  ['Swansea City', 'Swansea'], 
+  ['Tottenham Hotspur', 'Spurs'], 
+  ['Watford', 'Watford'], 
+  ['West Bromwich Albion', 'West Brom'], 
+  ['West Ham United', 'West Ham']
+  ]
+
+for team in team_list:
+    cursor.execute('''
+        insert into teams (team_name, aka, inactive) 
+        values (?,?,?)''', (team[0], team[1], False, ))        
+
+cursor.execute('''
+    insert into players (screen_name, holiday, still_in, admin) 
+    values (?,?,?,?)''', ('bmsleight', False, False, True,))
+
+db.commit()

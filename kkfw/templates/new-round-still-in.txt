@@ -1,0 +1,1 @@
+@{{ screen_name }} Round number {{ round_num }} of #kkfwinner open. Prize Pool ~£{{ prize_pool }} Entries in by {{ entry_by }} for games to be played by {{ gamed_played_by }} 
